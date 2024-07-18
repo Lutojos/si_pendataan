@@ -1,0 +1,3382 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "SAMBINA",
+        "license": {
+            "name": "MIT"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://sabina.dev:/api"
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Login",
+                "description": "Login",
+                "operationId": "login",
+                "requestBody": {
+                    "description": "User credential",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "karyawansambina@mail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "format": "password",
+                                        "example": "Qwer1234!"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully login"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Login Failed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The provided credentials are incorrect"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Logout",
+                "description": "Logout",
+                "operationId": "logout",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Token has been deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/forget-password": {
+            "post": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Forget Password",
+                "description": "Forget Password",
+                "operationId": "forgetpassword",
+                "requestBody": {
+                    "description": "Forget Password",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "example": "adminsambina@mail.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "We have e-mailed your password reset link!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/fcm-token": {
+            "patch": {
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Update Firebase Token",
+                "description": "Update Firebase Token",
+                "operationId": "fcmToken",
+                "requestBody": {
+                    "description": "Forget Password",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "firebase_token"
+                                ],
+                                "properties": {
+                                    "firebase_token": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "{token firebase}"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/contact-us": {
+            "get": {
+                "tags": [
+                    "Contact Us"
+                ],
+                "summary": "Get Inbox List",
+                "description": "Get Inbox List",
+                "operationId": "api.contactUs.index",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "last_message": {
+                                                                "type": "string",
+                                                                "example": "Hallo admin"
+                                                            },
+                                                            "is_read": {
+                                                                "type": "string",
+                                                                "example": "0"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/contact-us/detail-message": {
+            "get": {
+                "tags": [
+                    "Contact Us"
+                ],
+                "summary": "Get Detail Message",
+                "description": "Get Detail Message",
+                "operationId": "api.contactUs.detail",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit value is number by default limit is 10. ex : ?limit=100",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page value is number. ex : ?page=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "user_id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "messages": {
+                                                                "type": "string",
+                                                                "example": "Hallo admin"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "example": "36 minutest ago"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/contact-us/send-message": {
+            "post": {
+                "tags": [
+                    "Contact Us"
+                ],
+                "summary": "Send Message",
+                "description": "Send Message",
+                "operationId": "api.contactUs.send",
+                "requestBody": {
+                    "description": "Send Chat",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "to",
+                                    "message"
+                                ],
+                                "properties": {
+                                    "to": {
+                                        "type": "integet",
+                                        "format": "text",
+                                        "example": "1 default 1 to admin"
+                                    },
+                                    "send_from": {
+                                        "type": "integet",
+                                        "format": "text",
+                                        "example": "1 => Send from mobile . 2 => Send from cms"
+                                    },
+                                    "message": {
+                                        "type": "string",
+                                        "format": "text",
+                                        "example": "Hallo Admin"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Send Message Success"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/help-center": {
+            "get": {
+                "tags": [
+                    "Help Center"
+                ],
+                "summary": "Help Center List",
+                "description": "Get Help Center list",
+                "operationId": "api.helpCenter.index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit value is number by default limit is 10. ex : ?limit=100",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page value is number. ex : ?page=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "id"
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "DESC"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search value is string with rule ex : ?search=Hitam",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "task_name": {
+                                                                "type": "string",
+                                                                "example": "Maintenance  AC"
+                                                            },
+                                                            "room_name": {
+                                                                "type": "string",
+                                                                "example": "Melati 301"
+                                                            },
+                                                            "request_date": {
+                                                                "type": "string",
+                                                                "format": "date",
+                                                                "example": "2023-03-24 18:00:00"
+                                                            },
+                                                            "assign_date": {
+                                                                "type": "string",
+                                                                "format": "date",
+                                                                "example": "2023-03-24 18:00:00"
+                                                            },
+                                                            "cancel_date": {
+                                                                "type": "string",
+                                                                "format": "date",
+                                                                "example": "2023-03-24 18:00:00"
+                                                            },
+                                                            "finish_date": {
+                                                                "type": "string",
+                                                                "format": "date",
+                                                                "example": "2023-03-24 18:00:00"
+                                                            },
+                                                            "task_status": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "image_path": {
+                                                                "type": "string",
+                                                                "example": "http://image/storage/help_center_images/6269057910.jpg"
+                                                            },
+                                                            "_token": {
+                                                                "type": "uuid",
+                                                                "example": "b859c158230405fa61778630403343c7"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "first_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8080/api/help-center?page=1"
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "last_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8080/api/help-center?page=1"
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "&laquo; Sebelumnya"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": "false"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "next_page_url": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8080/api/help-center"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "prev_page_url": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/help-center/{token}": {
+            "get": {
+                "tags": [
+                    "Help Center"
+                ],
+                "summary": "Get Help Center By Token",
+                "description": "Get Help Center By Token",
+                "operationId": "api.helpCenter.view",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "detail": {
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "integer",
+                                                            "example": "1"
+                                                        },
+                                                        "task_id": {
+                                                            "type": "integer",
+                                                            "example": "9"
+                                                        },
+                                                        "task_name": {
+                                                            "type": "string",
+                                                            "example": "Maintenance  AC"
+                                                        },
+                                                        "category_id": {
+                                                            "type": "integer",
+                                                            "example": "2"
+                                                        },
+                                                        "category_name": {
+                                                            "type": "string",
+                                                            "example": "Maintenance"
+                                                        },
+                                                        "notes": {
+                                                            "type": "string",
+                                                            "example": "AC tidak menyala"
+                                                        },
+                                                        "request_date": {
+                                                            "type": "string",
+                                                            "format": "date",
+                                                            "example": "23/03/2023"
+                                                        },
+                                                        "finish_date": {
+                                                            "type": "string",
+                                                            "format": "date-time",
+                                                            "example": "24/03/2023 18:00:00"
+                                                        },
+                                                        "_token": {
+                                                            "type": "uuid",
+                                                            "example": "b859c158230405fa61778630403343c7"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                },
+                                                "images": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "help_center_id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "image_path": {
+                                                                "type": "string",
+                                                                "format": "date",
+                                                                "example": "http://localhost/storage/help_center_images/16780815691391573465.png"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2023-03-24 18:00:00"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "format": "date-time",
+                                                                "example": "2023-03-24 18:00:00"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/help-center/categories": {
+            "get": {
+                "tags": [
+                    "Help Center"
+                ],
+                "summary": "Help Center Categories List",
+                "description": "Get Help Center Categories list",
+                "operationId": "api.helpCenter.categories",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit value is number by default limit is 10. ex : ?limit=100",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page value is number. ex : ?page=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "id"
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "DESC"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search value is string with rule ex : ?search=Maintenance",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "category_name": {
+                                                                "type": "string",
+                                                                "example": "House Keeping"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "first_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8080/api/help-center/categories?page=1"
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "last_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8080/api/help-center/categories?page=1"
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "&laquo; Sebelumnya"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": "false"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "next_page_url": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8080/api/help-center/categories"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "prev_page_url": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/help-center/tasks": {
+            "get": {
+                "tags": [
+                    "Help Center"
+                ],
+                "summary": "Help Center Tasks By Category",
+                "description": "Get Help Center Tasks By Category",
+                "operationId": "api.helpCenter.tasksByCategory",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit value is number by default limit is 10. ex : ?limit=100",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page value is number. ex : ?page=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "id"
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "DESC"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search value is string with rule ex : ?search=Maintenance",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "category_id",
+                        "in": "query",
+                        "description": "Search value is integer with rule ex : ?category_id=1",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": 200
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "task_name": {
+                                                                "type": "string",
+                                                                "example": "Ruang Tidur"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "first_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8080/api/help-center/tasks?page=1"
+                                                },
+                                                "from": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "last_page_url": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8080/api/help-center/tasks?page=1"
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": "string",
+                                                                "example": null
+                                                            },
+                                                            "label": {
+                                                                "type": "string",
+                                                                "example": "&laquo; Sebelumnya"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean",
+                                                                "example": "false"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                },
+                                                "next_page_url": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "path": {
+                                                    "type": "string",
+                                                    "example": "http://localhost:8080/api/help-center/tasks"
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "example": 10
+                                                },
+                                                "prev_page_url": {
+                                                    "type": "string",
+                                                    "example": null
+                                                },
+                                                "to": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": 7
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/help-center/create-task": {
+            "post": {
+                "tags": [
+                    "Help Center"
+                ],
+                "summary": "Create Task",
+                "description": "Create Request Task",
+                "operationId": "api.helpCenter.createTask",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "task_id"
+                                ],
+                                "properties": {
+                                    "task_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1"
+                                    },
+                                    "notes": {
+                                        "type": "string",
+                                        "format": "string",
+                                        "example": "task notes"
+                                    },
+                                    "files[]": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "file"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "status_code": {
+                                            "type": "integer",
+                                            "example": "200"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully store data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "status": {
+                                                    "type": "boolean",
+                                                    "example": true
+                                                },
+                                                "message": {
+                                                    "type": "string",
+                                                    "example": "Successfully store data"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/inventory": {
+            "get": {
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Inventory List",
+                "description": "Get Inventory list",
+                "operationId": "api.inventory.index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit value is number by default limit is 10. ex : ?limit=100",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page value is number. ex : ?page=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "id"
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "DESC"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search value is string with rule ex : ?search=Hitam",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "limit": {
+                                                    "type": "integer",
+                                                    "example": "10"
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": "100"
+                                                },
+                                                "total_page": {
+                                                    "type": "integer",
+                                                    "example": "10"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Inventory 1"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/inventory/{token}": {
+            "get": {
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Get Inventory By Token",
+                "description": "Get Inventory By Token",
+                "operationId": "api.inventory.view",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Inventory name"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/karyawan": {
+            "get": {
+                "tags": [
+                    "Karyawan"
+                ],
+                "summary": "Get Dashboard Task",
+                "description": "Get Dashboard Task",
+                "operationId": "api.karyawan.index",
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Filter Date Range format dd/mm/yyyy - dd/mm/yyyy jika kosong maka akan diambil data hari ini",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "text",
+                            "example": "dd/mm/yyyy - dd/mm/yyyy"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "task_summary": {
+                                                                "type": "array",
+                                                                "items": {}
+                                                            },
+                                                            "jadwal": {
+                                                                "type": "array",
+                                                                "items": {}
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/karyawan/detail-task/{_token}": {
+            "get": {
+                "tags": [
+                    "Karyawan"
+                ],
+                "summary": "Get Detail Task",
+                "description": "Get Detail Task",
+                "operationId": "api.karyawan.detailTask",
+                "parameters": [
+                    {
+                        "name": "_token",
+                        "in": "path",
+                        "description": "Token Task",
+                        "required": true,
+                        "example": "475674c3b0b0985363ef0c7ed6673e20"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "task_id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "task_name": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "task_date": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "notes": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "req_id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "req_name": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "assign_id": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "assign_name": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "room_id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "room_name": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "task_status_id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "task_status_name": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "created_at": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "updated_at": {
+                                                                "type": "string",
+                                                                "example": "1"
+                                                            },
+                                                            "inventory_use": {
+                                                                "type": "array",
+                                                                "items": {}
+                                                            },
+                                                            "inventory_list": {
+                                                                "type": "array",
+                                                                "items": {}
+                                                            },
+                                                            "images": {
+                                                                "type": "array",
+                                                                "items": {}
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/karyawan/get-task-by-status": {
+            "get": {
+                "tags": [
+                    "Karyawan"
+                ],
+                "summary": "Get Dashboard Task",
+                "description": "Get Dashboard Task",
+                "operationId": "api.karyawan.getTaskByStatus",
+                "parameters": [
+                    {
+                        "name": "filter",
+                        "in": "query",
+                        "description": "Filter Date Range format dd/mm/yyyy - dd/mm/yyyy jika kosong maka akan diambil data hari ini",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "format": "text",
+                            "example": "dd/mm/yyyy - dd/mm/yyyy"
+                        }
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "description": "Filter status,0 => 'Pending', 1 => 'Todo', 2 => 'Batal', 3 => 'Selesai' ",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "default": "1",
+                            "enum": [
+                                0,
+                                1,
+                                2,
+                                3
+                            ],
+                            "example": "1"
+                        },
+                        "example": "1"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "task_summary": {
+                                                                "type": "array",
+                                                                "items": {}
+                                                            },
+                                                            "jadwal": {
+                                                                "type": "array",
+                                                                "items": {}
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/karyawan/store-task/{_token}": {
+            "post": {
+                "tags": [
+                    "Karyawan"
+                ],
+                "summary": "Store Task",
+                "description": "Store Task",
+                "operationId": "api.karyawan.storeTask",
+                "parameters": [
+                    {
+                        "name": "_token",
+                        "in": "path",
+                        "description": "Token Task",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "text",
+                            "example": "475674c3b0b0985363ef0c7ed6673e20"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "description": "Store Task",
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "properties": {
+                                    "images[]": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "file"
+                                        }
+                                    },
+                                    "notes": {
+                                        "type": "text",
+                                        "example": "Ini notes"
+                                    },
+                                    "inventory_use": {
+                                        "description": "Format Objectk",
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "inventory_id": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "qty": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully store data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "status": {
+                                                                "type": "string",
+                                                                "example": "success"
+                                                            },
+                                                            "message": {
+                                                                "type": "string",
+                                                                "example": "Successfully store data"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/notification": {
+            "get": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Notification List",
+                "description": "Get Notification List",
+                "operationId": "api.notification.index",
+                "parameters": [
+                    {
+                        "name": "offset",
+                        "in": "query",
+                        "description": "offset (start_data) 0 = page 1",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "limit data yang di ambil",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "d5b42cb8-ef1c-4231-8200-458e685b900e"
+                                                            },
+                                                            "data": {
+                                                                "type": "string",
+                                                                "example": "{}"
+                                                            },
+                                                            "read_at": {
+                                                                "type": "string",
+                                                                "example": "null"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/notification/mark-as-read": {
+            "put": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Mark All As Read",
+                "description": "Mark All As Read",
+                "operationId": "api.notification.markAsRead",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "data": {
+                                                                "type": "integer",
+                                                                "example": "Mark as Read Success"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/notification/mark-as-read/{notification_id}": {
+            "put": {
+                "tags": [
+                    "Notification"
+                ],
+                "summary": "Mark As Read By Id",
+                "description": "Mark As Read By Id",
+                "operationId": "api.notification.markAsReadById",
+                "parameters": [
+                    {
+                        "name": "notification_id",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "data": {
+                                                                "type": "integer",
+                                                                "example": "Mark as Read Success"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/order": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get My Order List",
+                "description": "Get My Order list",
+                "operationId": "api.order.index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit value is number by default limit is 10. ex : ?limit=100",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page value is number. ex : ?page=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "id"
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "DESC"
+                    },
+                    {
+                        "name": "orderID",
+                        "in": "query",
+                        "description": "Search value is string with rule ex : ?orderID=INV/SMB/1/12345",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "_token": {
+                                                                "type": "integer",
+                                                                "example": "075873eb4872f7425cb5408bec48ff18"
+                                                            },
+                                                            "order_number": {
+                                                                "type": "string",
+                                                                "example": "INV/SMB/1/12633412"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/order/{_token}": {
+            "get": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Get Order By Token",
+                "description": "Get Order By Token",
+                "operationId": "api.order.detail",
+                "parameters": [
+                    {
+                        "name": "_token",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "_token": {
+                                                                "type": "integer",
+                                                                "example": "075873eb4872f7425cb5408bec48ff18"
+                                                            },
+                                                            "order_number": {
+                                                                "type": "string",
+                                                                "example": "INV/SMB/1/12633412"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/order/create-order": {
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Create Order",
+                "description": "Create Order / Booking",
+                "operationId": "order.create",
+                "requestBody": {
+                    "description": "payload",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "room_id",
+                                    "period",
+                                    "entry_date",
+                                    "payment_method",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "room_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1"
+                                    },
+                                    "period": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "12"
+                                    },
+                                    "entry_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-02-24"
+                                    },
+                                    "payment_method": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1"
+                                    },
+                                    "deposit": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1000000"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "3000000"
+                                    },
+                                    "down_payment": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1000000"
+                                    },
+                                    "discount": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "500000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "https://app.sandbox.midtrans.com/snap/v3/redirection/2a9eebef-c5a6-4178-80a3-517b3e621edc"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/order/create-order-pelunasan": {
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Create Order Pelunasan",
+                "description": "Create Order PElunasan",
+                "operationId": "order.pelunasan",
+                "requestBody": {
+                    "description": "payload",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "order_id"
+                                ],
+                                "properties": {
+                                    "order_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "27"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "https://app.sandbox.midtrans.com/snap/v3/redirection/2a9eebef-c5a6-4178-80a3-517b3e621edc"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/order/create-order-perpanjangan": {
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Create Order Perpanjangan",
+                "description": "Create Order Perpanjangan",
+                "operationId": "order.perpanjangan",
+                "requestBody": {
+                    "description": "payload",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "room_id",
+                                    "period",
+                                    "entry_date",
+                                    "payment_method",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "room_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1"
+                                    },
+                                    "period": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "12"
+                                    },
+                                    "entry_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-02-24"
+                                    },
+                                    "payment_method": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1"
+                                    },
+                                    "deposit": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1000000"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "3000000"
+                                    },
+                                    "down_payment": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1000000"
+                                    },
+                                    "discount": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "500000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "https://app.sandbox.midtrans.com/snap/v3/redirection/2a9eebef-c5a6-4178-80a3-517b3e621edc"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/order/create-order-pindah": {
+            "post": {
+                "tags": [
+                    "Order"
+                ],
+                "summary": "Create Order Pindah Kamar",
+                "description": "Create Order Pindah Kamar",
+                "operationId": "order.pindah",
+                "requestBody": {
+                    "description": "payload",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "room_id",
+                                    "period",
+                                    "entry_date",
+                                    "payment_method",
+                                    "price"
+                                ],
+                                "properties": {
+                                    "room_id": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1"
+                                    },
+                                    "period": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "12"
+                                    },
+                                    "entry_date": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "2023-02-24"
+                                    },
+                                    "payment_method": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1"
+                                    },
+                                    "deposit": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1000000"
+                                    },
+                                    "price": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "3000000"
+                                    },
+                                    "down_payment": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "1000000"
+                                    },
+                                    "discount": {
+                                        "type": "integer",
+                                        "format": "integer",
+                                        "example": "500000"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "https://app.sandbox.midtrans.com/snap/v3/redirection/2a9eebef-c5a6-4178-80a3-517b3e621edc"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/property": {
+            "get": {
+                "tags": [
+                    "Property"
+                ],
+                "summary": "Property List",
+                "description": "Get Property list",
+                "operationId": "api.property.index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit value is number by default limit is 10. ex : ?limit=100",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page value is number. ex : ?page=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "id"
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "DESC"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search value is string with rule ex : ?search=Hitam",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "limit": {
+                                                    "type": "integer",
+                                                    "example": "10"
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": "100"
+                                                },
+                                                "total_page": {
+                                                    "type": "integer",
+                                                    "example": "10"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Property 1"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/property/{token}": {
+            "get": {
+                "tags": [
+                    "Property"
+                ],
+                "summary": "Get Property By Token",
+                "description": "Get Property By Token",
+                "operationId": "api.property.view",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Property name"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/room": {
+            "get": {
+                "tags": [
+                    "Room"
+                ],
+                "summary": "Room List",
+                "description": "Get Room list",
+                "operationId": "api.room.index",
+                "parameters": [
+                    {
+                        "name": "limit",
+                        "in": "query",
+                        "description": "Limit value is number by default limit is 10. ex : ?limit=100",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "10"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "description": "Page value is number. ex : ?page=1",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        },
+                        "example": "1"
+                    },
+                    {
+                        "name": "direction",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?direction[]=id&direction[]=name. if string ex : ?direction=id",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "id"
+                    },
+                    {
+                        "name": "order",
+                        "in": "query",
+                        "description": "Direction value is array / string with rule if array ex : ?order[]=asc&order[]=desc. if string ex : ?order=asc",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "DESC"
+                    },
+                    {
+                        "name": "search",
+                        "in": "query",
+                        "description": "Search value is string with rule ex : ?search=Hitam",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "rekomendasi",
+                        "in": "query",
+                        "description": "false / true",
+                        "required": false,
+                        "schema": {
+                            "type": "string",
+                            "default": false,
+                            "enum": [
+                                false,
+                                true
+                            ]
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "page": {
+                                                    "type": "integer",
+                                                    "example": "1"
+                                                },
+                                                "limit": {
+                                                    "type": "integer",
+                                                    "example": "10"
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "example": "100"
+                                                },
+                                                "total_page": {
+                                                    "type": "integer",
+                                                    "example": "10"
+                                                },
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "room 1"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/room/{token}": {
+            "get": {
+                "tags": [
+                    "Room"
+                ],
+                "summary": "Get Room By Token",
+                "description": "Get Room By Token",
+                "operationId": "api.room.view",
+                "parameters": [
+                    {
+                        "name": "token",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "room name"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/user/me": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User Me",
+                "description": "Get Me Data",
+                "operationId": "api.user.index",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "integer",
+                                                                "example": "1"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Administrator"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/user/store": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "User Registration",
+                "operationId": "api.user.store",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "ktp",
+                                    "password",
+                                    "password_confirmation",
+                                    "placeofbirth",
+                                    "phone_number",
+                                    "address",
+                                    "gender",
+                                    "dateofbirth"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "text",
+                                        "example": "John"
+                                    },
+                                    "email": {
+                                        "type": "text",
+                                        "example": "jhondoe@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "password",
+                                        "example": "Qwer1234!"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "password",
+                                        "example": "Qwer1234!"
+                                    },
+                                    "placeofbirth": {
+                                        "type": "text",
+                                        "example": "Jakarta"
+                                    },
+                                    "dateofbirth": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1991-02-24"
+                                    },
+                                    "address": {
+                                        "type": "text",
+                                        "example": "Jl Bunga No 12"
+                                    },
+                                    "gender": {
+                                        "description": "1 lanang 2 wadon",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "phone_number": {
+                                        "type": "text",
+                                        "example": "08123456789"
+                                    },
+                                    "ktp": {
+                                        "type": "file"
+                                    },
+                                    "avatar": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully save data"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/user/update-my-profile": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Update My Profile",
+                "operationId": "api.user.updatemyprofile",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "placeofbirth",
+                                    "phone_number",
+                                    "address",
+                                    "gender",
+                                    "dateofbirth"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "text",
+                                        "example": "John"
+                                    },
+                                    "email": {
+                                        "type": "text",
+                                        "example": "jhondoe@gmail.com"
+                                    },
+                                    "password": {
+                                        "description": "Biarkan kosong jika tidak diganti",
+                                        "type": "password"
+                                    },
+                                    "password_confirmation": {
+                                        "description": "Biarkan kosong jika tidak diganti",
+                                        "type": "password"
+                                    },
+                                    "placeofbirth": {
+                                        "type": "text",
+                                        "example": "Jakarta"
+                                    },
+                                    "dateofbirth": {
+                                        "type": "string",
+                                        "format": "date",
+                                        "example": "1991-02-24"
+                                    },
+                                    "address": {
+                                        "type": "text",
+                                        "example": "Jl Bunga No 12"
+                                    },
+                                    "gender": {
+                                        "description": "1 lanang 2 wadon",
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "phone_number": {
+                                        "type": "text",
+                                        "example": "08123456789"
+                                    },
+                                    "ktp": {
+                                        "type": "file"
+                                    },
+                                    "avatar": {
+                                        "type": "file"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Berhasil memperbarui data"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        },
+        "/user/my-room": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get My Room",
+                "description": "Get My Room",
+                "operationId": "api.user.myroom",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Successfully get data"
+                                        },
+                                        "data": {
+                                            "properties": {
+                                                "data": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "properties": {
+                                                            "room_name": {
+                                                                "type": "integer",
+                                                                "example": "room name"
+                                                            },
+                                                            "description": {
+                                                                "type": "string",
+                                                                "example": "room blablabla"
+                                                            },
+                                                            "entry_date": {
+                                                                "type": "string",
+                                                                "format": "date",
+                                                                "example": "2023-02-24"
+                                                            },
+                                                            "checkout_date": {
+                                                                "type": "string",
+                                                                "format": "date",
+                                                                "example": "2023-03-03"
+                                                            },
+                                                            "image_path": {
+                                                                "type": "string",
+                                                                "example": "path image"
+                                                            },
+                                                            "it_will_end": {
+                                                                "type": "string",
+                                                                "example": "1 = will end , 0 = not yet"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "token": [],
+                        "mobilekey": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "responses": {
+            "422": {
+                "description": "Validation Failed",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "properties": {
+                                "status": {
+                                    "type": "boolean",
+                                    "example": "false"
+                                },
+                                "message": {
+                                    "type": "string",
+                                    "example": "Email and password required"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "token": {
+                "type": "http",
+                "in": "header",
+                "bearerFormat": "JWT",
+                "scheme": "bearer"
+            },
+            "mobilekey": {
+                "type": "apiKey",
+                "name": "X-API-KEY",
+                "in": "header"
+            }
+        }
+    }
+}
